@@ -1,0 +1,43 @@
+{
+  "name": "mexc-api",
+  "author": "Halil Ceyhan",
+  "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup --dts"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^18.8.3",
+    "@types/websocket": "^1.0.5",
+    "axios": "^0.27.2",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "tsup": "^6.2.3",
+    "typescript": "latest",
+    "websocket": "^1.0.34"
+  },
+  "dependencies": {}
+}

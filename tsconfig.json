@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "rootDir": ".",
+    "types": []
+  },
+  "include": [
+    "src",
+    "demo.js"
+  ]
+}
