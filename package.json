@@ -1,43 +1,32 @@
 {
-  "name": "mexc-api",
-  "author": "Halil Ceyhan",
-  "version": "0.0.0",
-  "files": [
-    "dist"
+  "name": "mexc",
+  "version": "1.0.0",
+  "description": "This is a lightweight library that works as a connector to the MEXC public API.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=12.22.3",
+    "npm": ">=6.14.13"
+  },
+  "keywords": [
+    "Mexc",
+    "API"
   ],
-  "main": "dist/index.js",
-  "unpkg": "dist/index.js",
-  "jsdelivr": "dist/index.js",
-  "module": "dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
-  },
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true
-  },
-  "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup --dts"
-  },
+  "author": "Nl",
+  "license": "MIT",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/crypto-js": "^4.1.1",
-    "@types/node": "^18.8.3",
-    "@types/websocket": "^1.0.5",
-    "axios": "^0.27.2",
-    "crypto-js": "^4.1.1",
-    "dotenv": "^16.0.3",
-    "tsup": "^6.2.3",
-    "typescript": "latest",
-    "websocket": "^1.0.34"
+    "crypto-js": "^3.1.9-1",
+    "moment": "^2.13.0",
+    "pako": "^1.0.6"
   },
-  "dependencies": {}
+  "files": [
+    "src/**/*"
+  ],
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^16.0.3",
+    "ws": "^7.5.0"
+  },
+  "execMap": {
+    "js": "node –harmony"
+  }
 }
