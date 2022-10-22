@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "name": "node-mexc-api",
   "module": "dist/index.js",
   "main": "dist/index.js",
