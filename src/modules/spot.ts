@@ -514,7 +514,7 @@ export default class Spot extends Mexc {
         )
     }
 
-    ısolatedAccount(options = {}) {
+    isolatedAccount(options = {}) {
         return this.signRequest(
             'GET',
             'https://api.mexc.com/api/v3/margin/isolated/account',
@@ -546,7 +546,7 @@ export default class Spot extends Mexc {
         )
     }
 
-    ısolatedPair(options = {}) {
+    isolatedPair(options = {}) {
         return this.signRequest(
             'GET',
             'https://api.mexc.com/api/v3/margin/isolated/pair',
@@ -562,7 +562,7 @@ export default class Spot extends Mexc {
         )
     }
 
-    ısolatedMarginData(options = {}) {
+    isolatedMarginData(options = {}) {
         return this.signRequest(
             'GET',
             'https://api.mexc.com/api/v3/margin/isolatedMarginData',
@@ -570,7 +570,7 @@ export default class Spot extends Mexc {
         )
     }
 
-    ısolatedMarginTier(options = {}) {
+    isolatedMarginTier(options = {}) {
         return this.signRequest(
             'GET',
             'https://api.mexc.com/api/v3/margin/isolatedMarginTier',

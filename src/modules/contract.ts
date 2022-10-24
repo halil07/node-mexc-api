@@ -34,7 +34,7 @@ export default class Contract extends Mexc {
         )
     }
 
-    ındexPriceBySymbol(options = {}) {
+    indexPriceBySymbol(options = {}) {
         return this.publicRequest(
             'GET',
             'https://contract.mexc.com/api/v1/contract/index_price/{symbol}',
@@ -66,7 +66,7 @@ export default class Contract extends Mexc {
         )
     }
 
-    ındexPriceKlineBySymbol(options = {}) {
+    indexPriceKlineBySymbol(options = {}) {
         return this.publicRequest(
             'GET',
             'https://contract.mexc.com/api/v1/contract/kline/index_price/{symbol}',
