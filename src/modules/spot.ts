@@ -1,485 +1,579 @@
-import mexcBase, {IOptions} from "./base";
+import Mexc, {IOptions} from "./base";
 
-export default class Spot extends mexcBase{
-    constructor({ apiKey, apiSecret}: IOptions) {
-        super({apiKey, apiSecret,  type:'spot' });
+export default class Spot extends Mexc {
+    constructor({apiKey, apiSecret}: IOptions) {
+        super({apiKey, apiSecret});
+        return this;
     }
-    spotSymbols() {
-        return this.publicRequest('GET', '/open/api/v2/market/symbols')
+
+    symbols() {
+        return this.PublicRequest('GET', 'https://www.mexc.com/open/api/v2/market/symbols')
     }
-    spotServerTime() {
-        return this.publicRequest('GET', '/open/api/v2/common/timestamp')
+
+    serverTime() {
+        return this.PublicRequest('GET', 'https://www.mexc.com/open/api/v2/common/timestamp')
     }
-    spotPing() {
-        return this.publicRequest('GET', '/open/api/v2/common/ping')
+
+    ping() {
+        return this.PublicRequest('GET', 'https://www.mexc.com/open/api/v2/common/ping')
     }
-    spotDefaultSymbols(options = {}) {
-        return this.publicRequest(
+
+    defaultSymbols(options = {}) {
+        return this.PublicRequest(
             'GET',
-            '/open/api/v2/market/ticker',
+            'https://www.mexc.com/open/api/v2/market/ticker',
             options
         )
     }
-    spotTicker(options = {}) {
-        return this.publicRequest(
+
+    ticker(options = {}) {
+        return this.PublicRequest(
             'GET',
-            '/open/api/v2/market/ticker',
+            'https://www.mexc.com/open/api/v2/market/ticker',
             options
         )
     }
-    spotDeals(options = {}) {
-        return this.publicRequest(
+
+    depthV2(options = {}) {
+        return this.PublicRequest(
             'GET',
-            '/open/api/v2/market/deals',
+            'https://www.mexc.com/open/api/v2/market/depth',
             options
         )
     }
-    spotCoinList() {
-        return this.publicRequest('GET', '/open/api/v2/market/coin/list')
-    }
-    spotAccount(options = {}) {
-        return this.privateRequest(
+
+    deals(options = {}) {
+        return this.PublicRequest(
             'GET',
-            '/open/api/v2/account/info',
+            'https://www.mexc.com/open/api/v2/market/deals',
             options
         )
     }
-    spotApiAccount(options = {}) {
-        return this.privateRequest(
+
+    klineV2(options = {}) {
+        return this.PublicRequest(
             'GET',
-            '/open/api/v2/market/api_symbols',
+            'https://www.mexc.com/open/api/v2/market/kline',
+            options
+        )
+    }
+
+    coinList() {
+        return this.PublicRequest('GET', 'https://www.mexc.com/open/api/v2/market/coin/list')
+    }
+
+    account(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/account/info',
+            options
+        )
+    }
+
+    apiAccount(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/market/api_symbols',
             options,
         )
     }
-    spotPlaceOrder(options = {}) {
-        return this.privateRequest(
+
+    placeOrder(options = {}) {
+        return this.SignRequest(
             'POST',
-            '/open/api/v2/order/place',
+            'https://www.mexc.com/open/api/v2/order/place',
             options,
+        )
+    }
 
-        )
-    }
-    spotMultiPlaceOrder(options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/open/api/v2/order/place_batch',
-            options
-        )
-    }
-    spotGetOpenOrder(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/order/open_orders',
-            options
-        )
-    }
-    spotGetAllOrder(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/order/list',
-            options
-        )
-    }
-    spotQueryOrderById(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/order/query',
-            options
-        )
-    }
-    spotGetOrderDeal(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/order/deals',
-            options
-        )
-    }
-    spotQueryOrderDealById(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/order/deal_detail',
-            options
-        )
-    }
-    spotCancelBySymbol(options = {}) {
-        return this.privateRequest(
+    cancelOrderV2(options = {}) {
+        return this.SignRequest(
             'DELETE',
-            '/open/api/v2/order/cancel_by_symbol',
+            'https://www.mexc.com/open/api/v2/order/cancel',
             options
         )
     }
-    spotGetDepositList(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/asset/deposit/address/list',
-            options
-        )
-    }
-    spotGetDepositRecord( options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/asset/deposit/list',
-            options
-        )
-    }
-    spotGetWithdrawList( options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/asset/withdraw/list',
-            options
-        )
-    }
-    spotWithdraw( options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/open/api/v2/asset/withdraw',
-            options
-        )
-    }
-    spotCancelWithdraw(options = {}) {
-        return this.privateRequest(
-            'DELETE',
-            '/open/api/v2/asset/withdraw',
-            options
-        )
-    }
-    spotTransFer( options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/open/api/v2/asset/internal/transfer',
-            options
-        )
-    }
-    spotGetTransferRecord(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/asset/internal/transfer/record',
-            options
-        )
-    }
-    spotGetAvlTransfer(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/account/balance',
-            options
-        )
-    }
-    spotQueryTransferRecordById(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/open/api/v2/asset/internal/transfer/info',
-            options
-        )
-    }
-    /**
-     * @V3
-     */
-    spotTestConnectivityV3() {
-        return this.publicRequest('GET', '/api/v3/ping')
-    }
-    spotServerTimeV3() {
-        return this.publicRequest('GET', '/api/v3/time')
-    }
-    spotExchangeInformation() {
-        return this.publicRequest('GET', '/api/v3/exchangeInfo')
-    }
-    spotDepth(options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/depth',
-            options
-        )
-    }
-    spotRecentTradesList(options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/trades',
-            options
-        )
-    }
-    spotOldTradeLookup(options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/historicalTrades',
-            options
-        )
-    }
-    spotCompressedTradesList(options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/aggTrades',
-            options
-        )
-    }
-    spotKline( options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/klines',
-            options
-        )
-    }
-    spotCurrentAveragePrice(options = {}) {
-        return this.publicRequest(
-            'GET',
-            '/api/v3/avgPrice',
-            options
-        )
-    }
-    spotTickerPriceChange() {
-        return this.publicRequest('GET', '/api/v3/ticker/24hr')
-    }
-    spotSymbolPriceTicker() {
-        return this.publicRequest('GET', '/api/v3/ticker/price')
-    }
-    spotSymbolOrderBook() {
-        return this.publicRequest('GET', '/api/v3/ticker/bookTicker')
-    }
-    spotEtfInfo() {
-        return this.publicRequest('GET', 'api/v3/etf/info')
-    }
-    spotTestConnectivity(options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/order/test',
-            options
-        )
-    }
-    spotOrder(options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/order',
-            options
-        )
-    }
-    spotCancelOrder(options = {}) {
-        return this.privateRequest(
-            'DELETE',
-            '/api/v3/order',
-            options
-        )
-    }
-    spotCancelAllOpenOrders(options = {}) {
-        return this.privateRequest(
-            'DELETE',
-            '/api/v3/openOrders',
-            options
-        )
-    }
-    spotQueryOrder(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/order',
-            options
-        )
-    }
-    spotCurrentOpenOrders(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/openOrders',
-            options
-        )
-    }
-    spotAllOrders(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/allOrders',
-            options
-        )
-    }
-    spotAccountInformation(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/account',
-            options
 
-        )
-    }
-    spotAccountTradeList(options = {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/myTrades',
-            options
-        )
-    }
-    spotVirtualSubAccount(options = {}) {
-        return this.privateRequest(
+    multiPlaceOrder(options = {}) {
+        return this.SignRequest(
             'POST',
-            '/api/v3/sub-account/virtualSubAccount',
+            'https://www.mexc.com/open/api/v2/order/place_batch',
             options
         )
     }
-    spotSubAccountList( options = {}) {
-        return this.privateRequest(
+
+    getOpenOrder(options = {}) {
+        return this.SignRequest(
             'GET',
-            '/api/v3/sub-account/list',
+            'https://www.mexc.com/open/api/v2/order/open_orders',
             options
         )
     }
-    spotVirtualApikey(options = {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/sub-account/apiKey',
-            options
-        )
-    }
-    spotGetApiKey(options = {}) {
-        return this.privateRequest(
+
+    getAllOrder(options = {}) {
+        return this.SignRequest(
             'GET',
-            '/api/v3/sub-account/apiKey',
+            'https://www.mexc.com/open/api/v2/order/list',
             options
         )
     }
-    spotDelAccount(options = {}) {
-        return this.privateRequest(
+
+    queryOrderById(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/order/query',
+            options
+        )
+    }
+
+    getOrderDeal(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/order/deals',
+            options
+        )
+    }
+
+    queryOrderDealById(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/order/deal_detail',
+            options
+        )
+    }
+
+    cancelBySymbol(options = {}) {
+        return this.SignRequest(
             'DELETE',
-            '/api/v3/sub-account/apiKey',
+            'https://www.mexc.com/open/api/v2/order/cancel_by_symbol',
             options
         )
     }
-    spotTradeMode(options= {}) {
-        return this.privateRequest(
+
+    getDepositList(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/asset/deposit/address/list',
+            options
+        )
+    }
+
+    getDepositRecord(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/asset/deposit/list',
+            options
+        )
+    }
+
+    getWithdrawList(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/asset/withdraw/list',
+            options
+        )
+    }
+
+    withdraw(options = {}) {
+        return this.SignRequest(
             'POST',
-            '/api/v3/margin/tradeMode',
+            'https://www.mexc.com/open/api/v2/asset/withdraw',
             options
         )
     }
-    spotMarginOrderV3(options= {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/margin/order',
-            options
-        )
-    }
-    spotLoan(options= {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/margin/loan',
-            options
-        )
-    }
-    spotRepay(options= {}) {
-        return this.privateRequest(
-            'POST',
-            '/api/v3/margin/repay',
-            options
-        )
-    }
-    spotCancelAllMargin(options= {}) {
-        return this.privateRequest(
+
+    cancelWithdraw(options = {}) {
+        return this.SignRequest(
             'DELETE',
-            '/api/v3/margin/openOrders',
+            'https://www.mexc.com/open/api/v2/asset/withdraw',
             options
         )
     }
-    spotCancelMargin(options= {}) {
-        return this.privateRequest(
+
+    transFer(options = {}) {
+        return this.SignRequest(
+            'POST',
+            'https://www.mexc.com/open/api/v2/asset/internal/transfer',
+            options
+        )
+    }
+
+    getTransferRecord(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/asset/internal/transfer/record',
+            options
+        )
+    }
+
+    getAvlTransfer(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/account/balance',
+            options
+        )
+    }
+
+    queryTransferRecordById(options = {}) {
+        return this.SignRequest(
+            'GET',
+            'https://www.mexc.com/open/api/v2/asset/internal/transfer/info',
+            options
+        )
+    }
+
+    pingV3() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/ping')
+    }
+
+    serverTimeV3() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/time')
+    }
+
+    exchangeInformation() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/exchangeInfo')
+    }
+
+    depth(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/depth',
+            options
+        )
+    }
+
+    recentTradesList(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/trades',
+            options
+        )
+    }
+
+    oldTradeLookup(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/historicalTrades',
+            options
+        )
+    }
+
+    compressedTradesList(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/aggTrades',
+            options
+        )
+    }
+
+    kline(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/klines',
+            options
+        )
+    }
+
+    currentAveragePrice(options = {}) {
+        return this.publicRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/avgPrice',
+            options
+        )
+    }
+
+    tickerPriceChange() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/ticker/24hr')
+    }
+
+    symbolPriceTicker() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/ticker/price')
+    }
+
+    symbolOrderBook() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/ticker/bookTicker')
+    }
+
+    etfInfo() {
+        return this.publicRequest('GET', 'https://api.mexc.com/api/v3/etf/info')
+    }
+
+    testConnectivity(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/order/test',
+            options
+        )
+    }
+
+    order(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/order',
+            options
+        )
+    }
+
+    cancelOrder(options = {}) {
+        return this.signRequest(
             'DELETE',
-            '/api/v3/margin/order',
+            'https://api.mexc.com/api/v3/order',
             options
         )
     }
-    spotLoanRecord(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/loan',
+
+    cancelAllOpenOrders(options = {}) {
+        return this.signRequest(
+            'DELETE',
+            'https://api.mexc.com/api/v3/openOrders',
             options
         )
     }
-    spotAllOrdersRecord(options= {}) {
-        return this.privateRequest(
+
+    queryOrder(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/allOrders',
+            'https://api.mexc.com/api/v3/order',
             options
         )
     }
-    spotMyTrades(options= {}) {
-        return this.privateRequest(
+
+    currentOpenOrders(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/myTrades',
+            'https://api.mexc.com/api/v3/openOrders',
             options
         )
     }
-    spotMarginOpenOrders(options= {}) {
-        return this.privateRequest(
+
+    allOrders(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/openOrders',
+            'https://api.mexc.com/api/v3/allOrders',
             options
         )
     }
-    spotMaxTransferable(options= {}) {
-        return this.privateRequest(
+
+    accountInformation(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/maxTransferableh',
+            'https://api.mexc.com/api/v3/account',
             options
         )
     }
-    spotPriceIndex(options= {}) {
-        return this.privateRequest(
+
+    accountTradeList(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/priceIndex',
+            'https://api.mexc.com/api/v3/myTrades',
             options
         )
     }
-    spotMarginOrder(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/order',
+
+    virtualSubAccount(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/sub-account/virtualSubAccount',
             options
         )
     }
-    spotIsolatedAccount(options= {}) {
-        return this.privateRequest(
+
+    subAccountList(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/isolated/account',
+            'https://api.mexc.com/api/v3/sub-account/list',
             options
         )
     }
-    spotTrigerOrder(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/trigerOrder',
+
+    virtualApikey(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/sub-account/apiKey',
             options
         )
     }
-    spotMaxBorrowable(options= {}) {
-        return this.privateRequest(
+
+    getApiKey(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/maxBorrowable',
+            'https://api.mexc.com/api/v3/sub-account/apiKey',
             options
         )
     }
-    spotRepayRecord(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/repay',
+
+    delAccount(options = {}) {
+        return this.signRequest(
+            'DELETE',
+            'https://api.mexc.com/api/v3/sub-account/apiKey',
             options
         )
     }
-    spotIsolatedPair(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/isolated/pair',
+
+    tradeMode(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/margin/tradeMode',
             options
         )
     }
-    spotForceLiquidationRec(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/forceLiquidationRec',
+
+    marginOrderV3(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/margin/order',
             options
         )
     }
-    spotIsolatedMarginData(options= {}) {
-        return this.privateRequest(
-            'GET',
-            '/api/v3/margin/isolatedMarginData',
+
+    loan(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/margin/loan',
             options
         )
     }
-    spotIsolatedMarginTier(options= {}) {
-        return this.privateRequest(
+
+    repay(options = {}) {
+        return this.signRequest(
+            'POST',
+            'https://api.mexc.com/api/v3/margin/repay',
+            options
+        )
+    }
+
+    cancelAllMargin(options = {}) {
+        return this.signRequest(
+            'DELETE',
+            'https://api.mexc.com/api/v3/margin/openOrders',
+            options
+        )
+    }
+
+    cancelMargin(options = {}) {
+        return this.signRequest(
+            'DELETE',
+            'https://api.mexc.com/api/v3/margin/order',
+            options
+        )
+    }
+
+    loanRecord(options = {}) {
+        return this.signRequest(
             'GET',
-            '/api/v3/margin/isolatedMarginTier',
+            'https://api.mexc.com/api/v3/margin/loan',
+            options
+        )
+    }
+
+    allOrdersRecord(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/allOrders',
+            options
+        )
+    }
+
+    myTrades(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/myTrades',
+            options
+        )
+    }
+
+    marginOpenOrders(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/openOrders',
+            options
+        )
+    }
+
+    maxTransferable(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/maxTransferable',
+            options
+        )
+    }
+
+    priceIndex(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/priceIndex',
+            options
+        )
+    }
+
+    marginOrder(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/order',
+            options
+        )
+    }
+
+    ısolatedAccount(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/isolated/account',
+            options
+        )
+    }
+
+    trigerOrder(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/trigerOrder',
+            options
+        )
+    }
+
+    maxBorrowable(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/maxBorrowable',
+            options
+        )
+    }
+
+    repayRecord(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/repay',
+            options
+        )
+    }
+
+    ısolatedPair(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/isolated/pair',
+            options
+        )
+    }
+
+    forceLiquidationRec(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/forceLiquidationRec',
+            options
+        )
+    }
+
+    ısolatedMarginData(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/isolatedMarginData',
+            options
+        )
+    }
+
+    ısolatedMarginTier(options = {}) {
+        return this.signRequest(
+            'GET',
+            'https://api.mexc.com/api/v3/margin/isolatedMarginTier',
             options
         )
     }

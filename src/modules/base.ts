@@ -1,81 +1,86 @@
-import {
-    buildQueryString,
-    createPublicRequest,
-    createSignRequest,
-    removeEmptyValue,
-    stringifyKeyValuePair
-} from "../helpers/utils";
-
+import {buildQueryString, createRequest, CreateRequest, pubRequest, removeEmptyValue} from '../helpers/utils'
 import CryptoJS from "crypto-js"
 
 
 export interface IOptions {
     apiKey: string,
     apiSecret: string,
-    type: 'contract' | 'spot',
-    baseURL?: string,
+    type?: 'contract' | 'spot'
 }
+
 type methodType = 'POST' | 'GET' | 'DELETE'
 
-export default class mexcBase {
+export default class Mexc {
     private readonly apiKey: string;
     private readonly apiSecret: string;
-    private readonly baseURL: string;
-    private readonly type:'contract' | 'spot'
 
-    constructor({ apiKey, apiSecret, type }: IOptions) {
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
-        this.type = type;
-        if(this.type === 'contract'){
-            this.baseURL = "https://contract.mexc.com";
-        }else{
-            this.baseURL = "https://www.mexc.com";
-        }
+    constructor(options: IOptions) {
+        const {apiKey, apiSecret} = options
+        this.apiKey = apiKey
+        this.apiSecret = apiSecret
+        return this;
     }
 
-    async publicRequest(method: methodType, _path: string, _params={}) {
-        let path = await stringifyKeyValuePair(_path, _params);
-        const params = buildQueryString(removeEmptyValue(_params))
-        if (params !== "") {
-            path = `${path}?${params}`;
+    publicRequest(method: methodType, path: string, params = {}) {
+        params = removeEmptyValue(params)
+        params = buildQueryString(params)
+        if (params !== '') {
+            path = `${path}?${params}`
         }
-
-        return createPublicRequest({
+        return createRequest({
             method: method,
-            baseURL: this.baseURL,
             url: path,
-            apiKey: this.apiKey,
-        });
+            apiKey: this.apiKey
+        })
     }
 
-    async privateRequest(method: methodType, _path: string, _params= {}) {
-        let path = await stringifyKeyValuePair(_path, _params);
-        const params = buildQueryString(removeEmptyValue(_params))
-        const timestamp = Date.now();
-        const apiKey = this.apiKey;
-        let objectString = apiKey + timestamp;
-
-        if (method === "POST") {
-            path = `${path}`;
-            objectString += params;
-        }
-        else {
-            let queryString = params;
-            path = `${path}?${queryString}`;
-            objectString += queryString;
-        }
-        const Signature = CryptoJS.enc.Hex.stringify(
-            CryptoJS.HmacSHA256(objectString, this.apiSecret)
-        );
-        return createSignRequest({
+    signRequest(method: methodType, path: string, params = {}) {
+        params = removeEmptyValue(params)
+        const timestamp = Date.now()
+        const queryString = buildQueryString({...params, timestamp})
+        const signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(queryString, this.apiSecret))
+        return createRequest({
             method: method,
-            baseURL: this.baseURL,
+            url: `${path}?${queryString}&signature=${signature}`,
+            apiKey: this.apiKey
+        })
+    }
+
+    PublicRequest(method: methodType, path: string, params = {}) {
+        params = removeEmptyValue(params)
+        params = buildQueryString(params)
+        if (params !== '') {
+            path = `${path}?${params}`
+        }
+        return pubRequest({
+            method: method,
+            url: path,
+            apiKey: this.apiKey
+        })
+    }
+
+    SignRequest(method: methodType, path: string, params = {}) {
+        params = removeEmptyValue(params)
+        const timestamp = Date.now()
+        const apiKey = this.apiKey
+        let objectString = apiKey + timestamp
+
+        if (method === 'POST') {
+            path = `${path}`
+            objectString += JSON.stringify(params)
+        } else {
+            let queryString = buildQueryString({...params})
+            path = `${path}?${queryString}`
+            objectString += queryString
+        }
+        const Signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(objectString, this.apiSecret))
+        return CreateRequest({
+            method: method,
             url: path,
             apiKey: this.apiKey,
             timestamp: timestamp,
             Signature: Signature,
-            params: params,
-        });
+            params: params
+        })
     }
 }
