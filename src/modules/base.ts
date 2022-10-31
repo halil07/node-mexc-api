@@ -21,7 +21,7 @@ export default class Mexc {
         return this;
     }
 
-    publicRequest(method: methodType, path: string, params = {}) {
+    publicRequestV3(method: methodType, path: string, params = {}) {
         params = removeEmptyValue(params)
         params = buildQueryString(params)
         if (params !== '') {
@@ -34,7 +34,7 @@ export default class Mexc {
         })
     }
 
-    signRequest(method: methodType, path: string, params = {}) {
+    signRequestV3(method: methodType, path: string, params = {}) {
         params = removeEmptyValue(params)
         const timestamp = Date.now()
         const queryString = buildQueryString({...params, timestamp})
@@ -46,7 +46,7 @@ export default class Mexc {
         })
     }
 
-    PublicRequest(method: methodType, path: string, params = {}) {
+    publicRequestV2(method: methodType, path: string, params = {}) {
         params = removeEmptyValue(params)
         params = buildQueryString(params)
         if (params !== '') {
@@ -59,7 +59,7 @@ export default class Mexc {
         })
     }
 
-    SignRequest(method: methodType, path: string, params = {}) {
+    signRequestV2(method: methodType, path: string, params = {}) {
         params = removeEmptyValue(params)
         const timestamp = Date.now()
         const apiKey = this.apiKey
