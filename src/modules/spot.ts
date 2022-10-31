@@ -8,8 +8,8 @@ export default class Spot extends Mexc {
         return this;
     }
 
-    symbols() {
-        return this.publicRequestV2('GET', `${this.spotBaseUrlV2}market/symbols`)
+    symbols(params:{ symbol: string}) {
+        return this.publicRequestV2('GET', `${this.spotBaseUrlV2}market/symbols`, params)
     }
 
     serverTime() {
@@ -20,207 +20,197 @@ export default class Spot extends Mexc {
         return this.publicRequestV2('GET', `${this.spotBaseUrlV2}common/ping`)
     }
 
-    defaultSymbols(options = {}) {
+    defaultSymbols() {
         return this.publicRequestV2(
             'GET',
-            `${this.spotBaseUrlV2}market/ticker`,
-            options
+            `${this.spotBaseUrlV2}market/api_default_symbols`
         )
     }
 
-    ticker(options = {}) {
+    ticker(params:{ symbol?: string}) {
         return this.publicRequestV2(
             'GET',
             `${this.spotBaseUrlV2}market/ticker`,
-            options
+            params
         )
     }
 
-    depthV2(options = {}) {
+    depthV2(params:{ symbol?: string, depth?: number}) {
         return this.publicRequestV2(
             'GET',
             `${this.spotBaseUrlV2}market/depth`,
-            options
+            params
         )
     }
 
-    deals(options = {}) {
+    deals(params:{ symbol: string, limit?: number}) {
         return this.publicRequestV2(
             'GET',
             `${this.spotBaseUrlV2}market/deals`,
-            options
+            params
         )
     }
 
-    klineV2(options = {}) {
+    klineV2(params:{ symbol: string, interval: string, start_time?: string, limit: string}) {
         return this.publicRequestV2(
             'GET',
             `${this.spotBaseUrlV2}market/kline`,
-            options
+            params
         )
     }
 
-    coinList() {
-        return this.publicRequestV2('GET', `${this.spotBaseUrlV2}market/coin/list`)
+    coinList(params:{ currency?: string }) {
+        return this.publicRequestV2('GET', `${this.spotBaseUrlV2}market/coin/list`, params)
     }
 
-    account(options = {}) {
+    account() {
         return this.signRequestV2(
             'GET',
-            `${this.spotBaseUrlV2}account/info`,
-            options
+            `${this.spotBaseUrlV2}account/info`
         )
     }
 
-    apiAccount(options = {}) {
+    apiAccount() {
         return this.signRequestV2(
             'GET',
-            `${this.spotBaseUrlV2}market/api_symbols`,
-            options,
+            `${this.spotBaseUrlV2}market/api_symbols`
         )
     }
 
-    placeOrder(options = {}) {
+    placeOrder(params: {client_order_id?:string, order_type: string, price: string, quantity: string, symbol: string, trade_type: string}) {
         return this.signRequestV2(
             'POST',
             `${this.spotBaseUrlV2}order/place`,
-            options,
+            params
         )
     }
 
-    cancelOrderV2(options = {}) {
+    cancelOrderV2(params: {order_ids: string, client_order_ids: string}) {
         return this.signRequestV2(
             'DELETE',
             `${this.spotBaseUrlV2}order/cancel`,
-            options
+            params
         )
     }
 
-    multiPlaceOrder(options = {}) {
+    // data
+    multiPlaceOrder(params: {order_type: string, price: string, quantity: string, symbol: string, trade_type: string}[]) {
         return this.signRequestV2(
             'POST',
             `${this.spotBaseUrlV2}order/place_batch`,
-            options
+            params
         )
     }
 
-    getOpenOrder(options = {}) {
+    getOpenOrder(params: {symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}order/open_orders`,
-            options
+            params
         )
     }
 
-    getAllOrder(options = {}) {
+    getAllOrder(params: {states: string, symbol: string, trade_type: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}order/list`,
-            options
+            params
         )
     }
 
-    queryOrderById(options = {}) {
+    queryOrderById(params:{order_ids: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}order/query`,
-            options
+            params
         )
     }
 
-    getOrderDeal(options = {}) {
+    getOrderDeal(params : {limit: string, start_time: string, symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}order/deals`,
-            options
+            params
         )
     }
 
-    queryOrderDealById(options = {}) {
+    queryOrderDealById(params: {order_id: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}order/deal_detail`,
-            options
+            params
         )
     }
 
-    cancelBySymbol(options = {}) {
+    cancelBySymbol(params: {symbol: string}) {
         return this.signRequestV2(
             'DELETE',
             `${this.spotBaseUrlV2}order/cancel_by_symbol`,
-            options
+            params
         )
     }
 
-    getDepositList(options = {}) {
+    getDepositList(params: {currency: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}asset/deposit/address/list`,
-            options
+            params
         )
     }
 
-    getDepositRecord(options = {}) {
+    getDepositRecord(params: {currency: string,start_time: string, end_time: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}asset/deposit/list`,
-            options
+            params
         )
     }
 
-    getWithdrawList(options = {}) {
+    getWithdrawList(params: {start_time: string, end_time: string, withdraw_id: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}asset/withdraw/list`,
-            options
+            params
         )
     }
 
-    withdraw(options = {}) {
+    withdraw(params: {currency: string, chain: string, amount: string, address: string}) {
         return this.signRequestV2(
             'POST',
             `${this.spotBaseUrlV2}asset/withdraw`,
-            options
+            params
         )
     }
 
-    cancelWithdraw(options = {}) {
-        return this.signRequestV2(
-            'DELETE',
-            `${this.spotBaseUrlV2}asset/withdraw`,
-            options
-        )
-    }
-
-    transFer(options = {}) {
+    transFer(params: {sub_uid: string, currency: string, amount: string, type: string}) {
         return this.signRequestV2(
             'POST',
             `${this.spotBaseUrlV2}asset/internal/transfer`,
-            options
+            params
         )
     }
 
-    getTransferRecord(options = {}) {
+    getTransferRecord(params: {start_time: string, end_time: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}asset/internal/transfer/record`,
-            options
+            params
         )
     }
 
-    getAvlTransfer(options = {}) {
+    getAvlTransfer(params: {currency: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}account/balance`,
-            options
+            params
         )
     }
 
-    queryTransferRecordById(options = {}) {
+    queryTransferRecordById(params : {transact_id: string}) {
         return this.signRequestV2(
             'GET',
             `${this.spotBaseUrlV2}asset/internal/transfer/info`,
-            options
+            params
         )
     }
 
@@ -236,51 +226,51 @@ export default class Spot extends Mexc {
         return this.publicRequestV3('GET', `${this.spotBaseUrlV3}exchangeInfo`)
     }
 
-    depth(options = {}) {
+    depth(params: {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}depth`,
-            options
+            params
         )
     }
 
-    recentTradesList(options = {}) {
+    recentTradesList(params: {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}trades`,
-            options
+            params
         )
     }
 
-    oldTradeLookup(options = {}) {
+    oldTradeLookup(params: {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}historicalTrades`,
-            options
+            params
         )
     }
 
-    compressedTradesList(options = {}) {
+    compressedTradesList(params: {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}aggTrades`,
-            options
+            params
         )
     }
 
-    kline(options = {}) {
+    kline(params: {symbol: string, interval: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}klines`,
-            options
+            params
         )
     }
 
-    currentAveragePrice(options = {}) {
+    currentAveragePrice(params: {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}avgPrice`,
-            options
+            params
         )
     }
 
@@ -300,283 +290,74 @@ export default class Spot extends Mexc {
         return this.publicRequestV3('GET', `${this.spotBaseUrlV3}etf/info`)
     }
 
-    testConnectivity(options = {}) {
+    testConnectivity(params: {symbol:string, side: string, type: string, quantity: string, price: string}) {
         return this.signRequestV3(
             'POST',
             `${this.spotBaseUrlV3}order/test`,
-            options
+            params
         )
     }
 
-    order(options = {}) {
+    order(params: {symbol:string, side: string, type: string, quantity: string, price: string, quoteOrderQty: string}) {
         return this.signRequestV3(
             'POST',
             `${this.spotBaseUrlV3}order`,
-            options
+            params
         )
     }
 
-    cancelOrder(options = {}) {
+    cancelOrder(params : {symbol: string, orderId: string}) {
         return this.signRequestV3(
             'DELETE',
             `${this.spotBaseUrlV3}order`,
-            options
+            params
         )
     }
 
-    cancelAllOpenOrders(options = {}) {
+    cancelAllOpenOrders(params: {symbol: string}) {
         return this.signRequestV3(
             'DELETE',
             `${this.spotBaseUrlV3}openOrders`,
-            options
+            params
         )
     }
 
-    queryOrder(options = {}) {
+    queryOrder(params: {symbol: string, orderId: string}) {
         return this.signRequestV3(
             'GET',
             `${this.spotBaseUrlV3}order`,
-            options
+            params
         )
     }
 
-    currentOpenOrders(options = {}) {
+    currentOpenOrders(params: {symbol: string}) {
         return this.signRequestV3(
             'GET',
             `${this.spotBaseUrlV3}openOrders`,
-            options
+            params
         )
     }
 
-    allOrders(options = {}) {
+    allOrders(params: {symbol: string}) {
         return this.signRequestV3(
             'GET',
             `${this.spotBaseUrlV3}allOrders`,
-            options
+            params
         )
     }
 
-    accountInformation(options = {}) {
+    accountInformation() {
         return this.signRequestV3(
             'GET',
-            `${this.spotBaseUrlV3}account`,
-            options
+            `${this.spotBaseUrlV3}account`
         )
     }
 
-    accountTradeList(options = {}) {
+    accountTradeList(params: {symbol: string}) {
         return this.signRequestV3(
             'GET',
             `${this.spotBaseUrlV3}myTrades`,
-            options
-        )
-    }
-
-    virtualSubAccount(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}sub-account/virtualSubAccount`,
-            options
-        )
-    }
-
-    subAccountList(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}sub-account/list`,
-            options
-        )
-    }
-
-    virtualApikey(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}sub-account/apiKey`,
-            options
-        )
-    }
-
-    getApiKey(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}sub-account/apiKey`,
-            options
-        )
-    }
-
-    delAccount(options = {}) {
-        return this.signRequestV3(
-            'DELETE',
-            `${this.spotBaseUrlV3}sub-account/apiKey`,
-            options
-        )
-    }
-
-    tradeMode(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}margin/tradeMode`,
-            options
-        )
-    }
-
-    marginOrderV3(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}margin/order`,
-            options
-        )
-    }
-
-    loan(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}margin/loan`,
-            options
-        )
-    }
-
-    repay(options = {}) {
-        return this.signRequestV3(
-            'POST',
-            `${this.spotBaseUrlV3}margin/repay`,
-            options
-        )
-    }
-
-    cancelAllMargin(options = {}) {
-        return this.signRequestV3(
-            'DELETE',
-            `${this.spotBaseUrlV3}margin/openOrders`,
-            options
-        )
-    }
-
-    cancelMargin(options = {}) {
-        return this.signRequestV3(
-            'DELETE',
-            `${this.spotBaseUrlV3}margin/order`,
-            options
-        )
-    }
-
-    loanRecord(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/loan`,
-            options
-        )
-    }
-
-    allOrdersRecord(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/allOrders`,
-            options
-        )
-    }
-
-    myTrades(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/myTrades`,
-            options
-        )
-    }
-
-    marginOpenOrders(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/openOrders`,
-            options
-        )
-    }
-
-    maxTransferable(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/maxTransferable`,
-            options
-        )
-    }
-
-    priceIndex(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/priceIndex`,
-            options
-        )
-    }
-
-    marginOrder(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/order`,
-            options
-        )
-    }
-
-    isolatedAccount(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/isolated/account`,
-            options
-        )
-    }
-
-    trigerOrder(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/trigerOrder`,
-            options
-        )
-    }
-
-    maxBorrowable(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/maxBorrowable`,
-            options
-        )
-    }
-
-    repayRecord(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/repay`,
-            options
-        )
-    }
-
-    isolatedPair(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/isolated/pair`,
-            options
-        )
-    }
-
-    forceLiquidationRec(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/forceLiquidationRec`,
-            options
-        )
-    }
-
-    isolatedMarginData(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/isolatedMarginData`,
-            options
-        )
-    }
-
-    isolatedMarginTier(options = {}) {
-        return this.signRequestV3(
-            'GET',
-            `${this.spotBaseUrlV3}margin/isolatedMarginTier`,
-            options
+            params
         )
     }
 }

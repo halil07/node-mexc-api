@@ -19,365 +19,364 @@ export default class Contract extends Mexc {
         return this.publicRequestV3('GET', `${this.contractBaseUrl}contract/support_currencies`)
     }
 
-    depthBySymbol(options = {}) {
+    depthBySymbol(params : {symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/depth/{symbol}`,
-            options
+            params
         )
     }
 
-    depthCommitsBySymbol(options = {}) {
+    depthCommitsBySymbol(params: { symbol: string, limit: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/depth_commits/{symbol}/{limit}`,
-            options
+            params
         )
     }
 
-    indexPriceBySymbol(options = {}) {
+    indexPriceBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/index_price/{symbol}`,
-            options
+            params
         )
     }
 
-    fairPriceBySymbol(options = {}) {
+    fairPriceBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/fair_price/{symbol}`,
-            options
+            params
         )
     }
 
-    fundingRateBySymbol(options = {}) {
+    fundingRateBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/funding_rate/{symbol}`,
-            options
+            params
         )
     }
 
-    klineBySymbol(options = {}) {
+    klineBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/kline/{symbol}`,
-            options
+            params
         )
     }
 
-    indexPriceKlineBySymbol(options = {}) {
+    indexPriceKlineBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/kline/index_price/{symbol}`,
-            options
+            params
         )
     }
 
-    fairPriceKlineBySymbol(options = {}) {
+    fairPriceKlineBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/kline/fair_price/{symbol}`,
-            options
+            params
         )
     }
 
-    dealsBySymbol(options = {}) {
+    dealsBySymbol(params: { symbol: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/deals/{symbol}`,
-            options
+            params
         )
     }
 
-    ticker() {
-        return this.publicRequestV3('GET', `${this.contractBaseUrl}contract/ticker`)
+    ticker(params: { symbol?: string}) {
+        return this.publicRequestV3('GET', `${this.contractBaseUrl}contract/ticker`, params)
     }
 
-    riskReverse() {
-        return this.publicRequestV3('GET', `${this.contractBaseUrl}contract/risk_reverse`)
+    riskReverse(params: { symbol?: string}) {
+        return this.publicRequestV3('GET', `${this.contractBaseUrl}contract/risk_reverse`, params)
     }
 
-    riskReverseHistory(options = {}) {
+    riskReverseHistory(params: { symbol: string, page_num: string, page_size: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/risk_reverse/history`,
-            options
+            params
         )
     }
 
-    fundingRateHistory(options = {}) {
+    fundingRateHistory(params: { symbol: string, page_num: string, page_size: string}) {
         return this.publicRequestV3(
             'GET',
             `${this.contractBaseUrl}contract/funding_rate/history`,
-            options
+            params
         )
     }
 
-    assets(options = {}) {
+    assets() {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/account/assets`,
-            options
         )
     }
 
-    assetByCurrency(options = {}) {
+    assetByCurrency(params: {currency: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/account/asset/{currency}`,
-            options
+            params
         )
     }
 
-    transferRecord(options = {}) {
+    transferRecord(params : {page_num:string, page_start:string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/account/transfer_record`,
-            options
+            params
         )
     }
 
-    historyPositions(options = {}) {
+    historyPositions(params : {page_num:string, page_start:string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/position/list/history_positions`,
-            options
+            params
         )
     }
 
-    openPositions(options = {}) {
+    openPositions(params: { symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/position/open_positions`,
-            options
+            params
         )
     }
 
-    fundingRecords(options = {}) {
+    fundingRecords(params: {symbol?: string, position_id?: string, page_num: string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/position/funding_records`,
-            options
+            params
         )
     }
 
-    openOrders(options = {}) {
+    openOrders(params: {symbol: string, page_num:string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/list/open_orders/{symbol}`,
-            options
+            params
         )
     }
 
-    historyOrders(options = {}) {
+    historyOrders(params: {symbol: string, states: string, category: number, start_time: string, end_time: string, side: string, page_num: string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/list/history_orders`,
-            options
+            params
         )
     }
 
-    externalByExternalOid(options = {}) {
+    externalByExternalOid(params: {symbol: string, external_oid: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/external/{symbol}/{external_oid}`,
-            options
+            params
         )
     }
 
-    queryOrderById(options = {}) {
+    queryOrderById(params: {order_id: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/get/{order_id}`,
-            options
+            params
         )
     }
 
-    batchQueryById(options = {}) {
+    batchQueryById(params: {order_ids: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/batch_query`,
-            options
+            params
         )
     }
 
-    dealDetails(options = {}) {
+    dealDetails(params: {order_id: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/deal_details/{order_id}`,
-            options
+            params
         )
     }
 
-    orderDeals(options = {}) {
+    orderDeals(params : {symbol: string, start_time: string, end_time: string, page_num:string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/order/list/order_deals`,
-            options
+            params
         )
     }
 
-    planOrder(options = {}) {
+    planOrder(params : {symbol: string, states: string, start_time: string, end_time: string, page_num:string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/planorder/list/orders`,
-            options
+            params
         )
     }
 
-    stopOrder(options = {}) {
+    stopOrder(params : {symbol: string, is_finished: string, start_time: string, end_time: string, page_num:string, page_size: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/stoporder/list/orders`,
-            options
+            params
         )
     }
 
-    riskLimit(options = {}) {
+    riskLimit(params: {symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/account/risk_limit`,
-            options
+            params
         )
     }
 
-    tieredFeeRate(options = {}) {
+    tieredFeeRate(params: {symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/account/tiered_fee_rate`,
-            options
+            params
         )
     }
 
-    changeMargin(options = {}) {
+    changeMargin(params: {positionId: string, amount: string, type: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/position/change_margin`,
-            options
+            params
         )
     }
 
-    leverage(options = {}) {
+    leverage(params: {symbol: string}) {
         return this.signRequestV2(
             'GET',
             `${this.contractBaseUrl}private/position/leverage`,
-            options
+            params
         )
     }
 
-    changeLeverage(options = {}) {
+    changeLeverage(params: {positionId: string, leverage: string, openType: string, symbol: string, positionType: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/position/change_leverage`,
-            options
+            params
         )
     }
 
-    changePositionMode(options = {}) {
+    getPositionMode() {
         return this.signRequestV2(
             'POST',
-            `${this.contractBaseUrl}private/position/position_mode`,
-            options
+            `${this.contractBaseUrl}private/position/position_mode`
         )
     }
 
-    placeNewOrder(options = {}) {
+    changePositionMode(params: {positionMode: 1 | 2}) {
+        return this.signRequestV2(
+            'POST',
+            `${this.contractBaseUrl}private/position/change_position_mode`,
+            params
+        )
+    }
+
+    //data
+    placeNewOrder(params: {symbol: string, price: string, vol: string, leverage: string, side: string, type: string, openType: string, positionId: string, externalOid: string, stopLossPrice: string, takeProfitPrice: string, positionMode: string, reduceOnly: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/order/submit`,
-            options
+            params
         )
     }
 
-    placeNewOrderBatch(options = {}) {
+    //data
+    placeNewOrderBatch(params: {symbol: string, price: string, vol: string, leverage: string, side: string, type: string, openType: string, positionId: string, externalOid: string, stopLossPrice: string, takeProfitPrice: string, positionMode: string, reduceOnly: string}[]) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/order/submit_batch`,
-            options
+            params
         )
     }
 
-    cancelOrderById(options = {}) {
+    //data
+    cancelOrderById(params: string[]) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/order/cancel`,
-            options
+            params
         )
     }
 
-    cancelWithExternal(options = {}) {
+    cancelWithExternal(params: {symbol: string, externalOid: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/order/cancel_with_external`,
-            options
+            params
         )
     }
 
-    cancelAll(options = {}) {
+    cancelAll(params: {symbol: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/order/cancel_all`,
-            options
+            params
         )
     }
 
-    placePlanOrder(options = {}) {
-        return this.signRequestV2(
-            'POST',
-            `${this.contractBaseUrl}private/order/submit_batch`,
-            options
-        )
-    }
-
-    cancelPlanOrder(options = {}) {
+    cancelPlanOrder(params: string[]) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/planorder/cancel`,
-            options
+            params
         )
     }
 
-    cancel_all_plan_order(options = {}) {
+    cancelAllPlanOrder(params: { symbol: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/planorder/cancel_all`,
-            options
+            params
         )
-
-
     }
 
-    cancelStopOrder(options = {}) {
+    cancelStopOrder(params: { stopPlanOrderId: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/stoporder/cancel`,
-            options
+            params
         )
     }
 
-    cancelAllStopOrder(options = {}) {
+    cancelAllStopOrder(params: { symbol: string, positionId: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/stoporder/cancel_all`,
-            options
+            params
         )
     }
 
-    stopOrderChangePrice(options = {}) {
+    stopOrderChangePrice(params: {orderId:string, stopLossPrice: string, takeProfitPrice: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/stoporder/change_price`,
-            options
+            params
         )
     }
 
-    stopOrderChangePlanPrice(options = {}) {
+    stopOrderChangePlanPrice(params: {stopPlanOrderId: string, stopLossPrice: string, takeProfitPrice: string}) {
         return this.signRequestV2(
             'POST',
             `${this.contractBaseUrl}private/stoporder/change_plan_price`,
-            options
+            params
         )
     }
 }
