@@ -20,19 +20,13 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "test": "node ./example/index.js",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "node ./scripts/release.js"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@types/crypto-js": "^4.1.1",
     "@types/node": "^18.11.3",
-    "chalk": "^5.1.2",
     "conventional-changelog-cli": "^2.2.2",
-    "enquirer": "^2.3.6",
-    "execa": "^6.1.0",
-    "prettier": "^2.7.1",
-    "semver": "^7.3.8",
     "tsup": "^6.3.0",
     "typescript": "^4.8.4",
     "ws": "^8.9.0"

@@ -16,172 +16,169 @@ const mexc = new Mexc({
 #### Spot
 ```javascript
     await mexc.spot.symbols();
-    symbols(params: {
-            symbol: string;
-        });
-        await mexc.spot.serverTime();
-        await mexc.spot.ping();
-        await mexc.spot.defaultSymbols();
-        await mexc.spot.ticker(params: {
-            symbol?: string;
-        });
-        await mexc.spot.depthV2(params: {
-            symbol?: string;
-            depth?: number;
-        });
-        await mexc.spot.deals(params: {
-            symbol: string;
-            limit?: number;
-        });
-        await mexc.spot.klineV2(params: {
-            symbol: string;
-            interval: string;
-            start_time?: string;
-            limit: string;
-        });
-        await mexc.spot.coinList(params: {
-            currency?: string;
-        });
-        await mexc.spot.account();
-        await mexc.spot.apiAccount();
-        await mexc.spot.placeOrder(params: {
-            client_order_id?: string;
-            order_type: string;
-            price: string;
-            quantity: string;
-            symbol: string;
-            trade_type: string;
-        });
-        await mexc.spot.cancelOrderV2(params: {
-            order_ids: string;
-            client_order_ids: string;
-        });
-        await mexc.spot.multiPlaceOrder(params: {
-            order_type: string;
-            price: string;
-            quantity: string;
-            symbol: string;
-            trade_type: string;
-        }[]);
-        await mexc.spot.getOpenOrder(params: {
-            symbol: string;
-        });
-        await mexc.spot.getAllOrder(params: {
-            states: string;
-            symbol: string;
-            trade_type: string;
-        });
-        await mexc.spot.queryOrderById(params: {
-            order_ids: string;
-        });
-        await mexc.spot.getOrderDeal(params: {
-            limit: string;
-            start_time: string;
-            symbol: string;
-        });
-        await mexc.spot.queryOrderDealById(params: {
-            order_id: string;
-        });
-        await mexc.spot.cancelBySymbol(params: {
-            symbol: string;
-        });
-        await mexc.spot.getDepositList(params: {
-            currency: string;
-        });
-        await mexc.spot.getDepositRecord(params: {
-            currency: string;
-            start_time: string;
-            end_time: string;
-        });
-        await mexc.spot.getWithdrawList(params: {
-            start_time: string;
-            end_time: string;
-            withdraw_id: string;
-        });
-        await mexc.spot.withdraw(params: {
-            currency: string;
-            chain: string;
-            amount: string;
-            address: string;
-        });
-        await mexc.spot.transFer(params: {
-            sub_uid: string;
-            currency: string;
-            amount: string;
-            type: string;
-        });
-        await mexc.spot.getTransferRecord(params: {
-            start_time: string;
-            end_time: string;
-        });
-        await mexc.spot.getAvlTransfer(params: {
-            currency: string;
-        });
-        await mexc.spot.queryTransferRecordById(params: {
-            transact_id: string;
-        });
-        await mexc.spot.pingV3();
-        await mexc.spot.serverTimeV3();
-        await mexc.spot.exchangeInformation();
-        await mexc.spot.depth(params: {
-            symbol: string;
-        });
-        await mexc.spot.recentTradesList(params: {
-            symbol: string;
-        });
-        await mexc.spot.oldTradeLookup(params: {
-            symbol: string;
-        });
-        await mexc.spot.compressedTradesList(params: {
-            symbol: string;
-        });
-        await mexc.spot.kline(params: {
-            symbol: string;
-            interval: string;
-        });
-        await mexc.spot.currentAveragePrice(params: {
-            symbol: string;
-        });
-        await mexc.spot.tickerPriceChange();
-        await mexc.spot.symbolPriceTicker();
-        await mexc.spot.symbolOrderBook();
-        await mexc.spot.etfInfo();
-        await mexc.spot.testConnectivity(params: {
-            symbol: string;
-            side: string;
-            type: string;
-            quantity: string;
-            price: string;
-        });
-        await mexc.spot.order(params: {
-            symbol: string;
-            side: string;
-            type: string;
-            quantity: string;
-            price: string;
-            quoteOrderQty: string;
-        });
-        await mexc.spot.cancelOrder(params: {
-            symbol: string;
-            orderId: string;
-        });
-        await mexc.spot.cancelAllOpenOrders(params: {
-            symbol: string;
-        });
-        await mexc.spot.queryOrder(params: {
-            symbol: string;
-            orderId: string;
-        });
-        await mexc.spot.currentOpenOrders(params: {
-            symbol: string;
-        });
-        await mexc.spot.allOrders(params: {
-            symbol: string;
-        });
-        await mexc.spot.accountInformation();
-        await mexc.spot.accountTradeList(params: {
-            symbol: string;
-        });
+    await mexc.spot.serverTime();
+    await mexc.spot.ping();
+    await mexc.spot.defaultSymbols();
+    await mexc.spot.ticker({
+        symbol?: string;
+    });
+    await mexc.spot.depthV2({
+        symbol?: string;
+        depth?: number;
+    });
+    await mexc.spot.deals({
+        symbol: string;
+        limit?: number;
+    });
+    await mexc.spot.klineV2({
+        symbol: string;
+        interval: string;
+        start_time?: string;
+        limit: string;
+    });
+    await mexc.spot.coinList({
+        currency?: string;
+    });
+    await mexc.spot.account();
+    await mexc.spot.apiAccount();
+    await mexc.spot.placeOrder({
+        client_order_id?: string;
+        order_type: string;
+        price: string;
+        quantity: string;
+        symbol: string;
+        trade_type: string;
+    });
+    await mexc.spot.cancelOrderV2({
+        order_ids: string;
+        client_order_ids: string;
+    });
+    await mexc.spot.multiPlaceOrder({
+        order_type: string;
+        price: string;
+        quantity: string;
+        symbol: string;
+        trade_type: string;
+    }[]);
+    await mexc.spot.getOpenOrder({
+        symbol: string;
+    });
+    await mexc.spot.getAllOrder({
+        states: string;
+        symbol: string;
+        trade_type: string;
+    });
+    await mexc.spot.queryOrderById({
+        order_ids: string;
+    });
+    await mexc.spot.getOrderDeal({
+        limit: string;
+        start_time: string;
+        symbol: string;
+    });
+    await mexc.spot.queryOrderDealById({
+        order_id: string;
+    });
+    await mexc.spot.cancelBySymbol({
+        symbol: string;
+    });
+    await mexc.spot.getDepositList({
+        currency: string;
+    });
+    await mexc.spot.getDepositRecord({
+        currency: string;
+        start_time: string;
+        end_time: string;
+    });
+    await mexc.spot.getWithdrawList({
+        start_time: string;
+        end_time: string;
+        withdraw_id: string;
+    });
+    await mexc.spot.withdraw({
+        currency: string;
+        chain: string;
+        amount: string;
+        address: string;
+    });
+    await mexc.spot.transFer({
+        sub_uid: string;
+        currency: string;
+        amount: string;
+        type: string;
+    });
+    await mexc.spot.getTransferRecord({
+        start_time: string;
+        end_time: string;
+    });
+    await mexc.spot.getAvlTransfer({
+        currency: string;
+    });
+    await mexc.spot.queryTransferRecordById({
+        transact_id: string;
+    });
+    await mexc.spot.pingV3();
+    await mexc.spot.serverTimeV3();
+    await mexc.spot.exchangeInformation();
+    await mexc.spot.depth({
+        symbol: string;
+    });
+    await mexc.spot.recentTradesList({
+        symbol: string;
+    });
+    await mexc.spot.oldTradeLookup({
+        symbol: string;
+    });
+    await mexc.spot.compressedTradesList({
+        symbol: string;
+    });
+    await mexc.spot.kline({
+        symbol: string;
+        interval: string;
+    });
+    await mexc.spot.currentAveragePrice({
+        symbol: string;
+    });
+    await mexc.spot.tickerPriceChange();
+    await mexc.spot.symbolPriceTicker();
+    await mexc.spot.symbolOrderBook();
+    await mexc.spot.etfInfo();
+    await mexc.spot.testConnectivity({
+        symbol: string;
+        side: string;
+        type: string;
+        quantity: string;
+        price: string;
+    });
+    await mexc.spot.order({
+        symbol: string;
+        side: string;
+        type: string;
+        quantity: string;
+        price: string;
+        quoteOrderQty: string;
+    });
+    await mexc.spot.cancelOrder({
+        symbol: string;
+        orderId: string;
+    });
+    await mexc.spot.cancelAllOpenOrders({
+        symbol: string;
+    });
+    await mexc.spot.queryOrder({
+        symbol: string;
+        orderId: string;
+    });
+    await mexc.spot.currentOpenOrders({
+        symbol: string;
+    });
+    await mexc.spot.allOrders({
+        symbol: string;
+    });
+    await mexc.spot.accountInformation();
+    await mexc.spot.accountTradeList({
+        symbol: string;
+    });
 ```
 
 #### Contract
@@ -369,7 +366,7 @@ const mexc = new Mexc({
         symbol: string;
     });
     await mexc.contract.cancelPlanOrder(string[]);
-    await mexc.contract.cancelAllPlanOrder(params: {
+    await mexc.contract.cancelAllPlanOrder({
         symbol: string;
     });
     await mexc.contract.cancelStopOrder({
