@@ -2,7 +2,7 @@
 [![npm install node-mexc-api](https://nodei.co/npm/node-mexc-api.png?mini=true)](https://npmjs.org/package/node-mexc-api)
 
 #### Getting started
-```javascript
+```typescript
 const Mexc = require('node-mexc-api').default;
 require("dotenv").config();
 
@@ -14,7 +14,7 @@ const mexc = new Mexc({
 ```
 
 #### Spot
-```javascript
+```typescript
     await mexc.spot.symbols();
     await mexc.spot.serverTime();
     await mexc.spot.ping();
@@ -182,7 +182,7 @@ const mexc = new Mexc({
 ```
 
 #### Contract
-```javascript
+```typescript
     await mexc.contract.serverTime();
     await mexc.contract.contractDetail();
     await mexc.contract.supportCurrencies();
