@@ -276,7 +276,7 @@ export default class Contract extends Mexc {
 
     getPositionMode() {
         return this.signRequestV2(
-            'POST',
+            'GET',
             `${this.contractBaseUrl}private/position/position_mode`
         )
     }
