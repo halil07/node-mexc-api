@@ -258,7 +258,7 @@ export default class Spot extends Mexc {
         )
     }
 
-    kline(params: {symbol: string, interval: string}) {
+    kline(params: {symbol: string, interval: string, startTime?: number, endTime?: number, limit?: number}) {
         return this.publicRequestV3(
             'GET',
             `${this.spotBaseUrlV3}klines`,

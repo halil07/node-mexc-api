@@ -135,6 +135,9 @@ const mexc = new Mexc({
     await mexc.spot.kline({
         symbol: string;
         interval: string;
+        startTime: number; // optional
+        endTime: number; // optional
+        limit: number; // optional (default 500, max 1000)
     });
     await mexc.spot.currentAveragePrice({
         symbol: string;
