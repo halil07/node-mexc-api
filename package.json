@@ -20,7 +20,8 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "test": "node ./example/index.js",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
