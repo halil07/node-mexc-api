@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
+    "postinstall": "npm run build",
     "test": "node ./example/index.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
