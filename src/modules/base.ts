@@ -58,21 +58,26 @@ export default class Mexc {
             apiKey: this.apiKey
         })
     }
+    sortObject(obj: any) {
+        return Object.keys(obj).sort().reduce<Record<string, any>>(function (result, key) {
+            result[key] = obj[key];
+            return result;
+        }, {});
+    }
 
     signRequestV2(method: methodType, path: string, params = {}) {
-        params = removeEmptyValue(params)
+        params = this.sortObject(removeEmptyValue(params))
         const timestamp = Date.now()
         const apiKey = this.apiKey
         let objectString = apiKey + timestamp
 
         if (method === 'POST') {
-            path = `${path}`
             objectString += JSON.stringify(params)
         } else {
             let queryString = buildQueryString({...params})
-            path = `${path}?${queryString}`
             objectString += queryString
         }
+        
         const Signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(objectString, this.apiSecret))
         return CreateRequest({
             method: method,
